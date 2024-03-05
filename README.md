@@ -1,0 +1,2 @@
+# start_huggingface
+函数计算部署huggingface模版
