@@ -18,6 +18,50 @@ vars: # 全局变量
   modelAccessToken: {{ accessToken }}
 
 resources:
+  model_app_func:
+    component: 'fc3'
+    props:
+      region: ${vars.region}
+      role: ${vars.role}
+      functionName: ${vars.name}-model-app
+      description: Deploy HuggingFace applications of model
+      handler: not-used
+      timeout: 1800
+      memorySize: ${vars.memorySize}
+      cpu: 2
+      diskSize: 10240
+      gpuConfig:
+        gpuMemorySize: ${vars.gpuMemorySize}
+        gpuType: ${vars.gpuInstanceType}
+      instanceConcurrency: 1
+      runtime: custom-container
+      initializer: 'true'
+      initializationTimeout: 300
+      internetAccess: true
+      vpcConfig: auto
+      nasConfig: auto
+      customContainerConfig:
+        image: registry.${vars.region}.aliyuncs.com/sd-test-zhonglun/hf:transformers_v5
+        port: 8000
+      environmentVariables:
+        MODEL_ID: ${vars.modelID}
+        HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
+        MODEL_TASK: ${vars.modelTask}
+        HF_HOME: /mnt/${vars.name}-model-app/hf
+        PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          description: 'httpTriggerModel'
+          qualifier: LATEST
+          triggerConfig:
+            authType: anonymous
+            disableURLInternet: false
+            methods:
+              - GET
+              - POST
+              - PUT
+
   model_download_func:
     component: 'fc3'
     actions:
@@ -38,58 +82,14 @@ resources:
       runtime: python3.10
       code: ./model_download
       internetAccess: true
-      vpcConfig: auto
-      nasConfig: auto
+      vpcConfig: ${resources.model_app_func.output.vpcConfig}
+      nasConfig: ${resources.model_app_func.output.nasConfig}
       environmentVariables:
         MODEL_ID: ${vars.modelID}
         HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
-        HF_HOME: /mnt/${vars.name}-model-download-func/hf
+        HF_HOME: /mnt/${vars.name}-model-app/hf
       layers:
         - acs:fc:ap-southeast-1:1041759428116431:layers/huggingface_hub/versions/1
-
-  model_app_func:
-    component: 'fc3'
-    props:
-      region: ${vars.region}
-      role: ${vars.role}
-      functionName: ${vars.name}-model-app-func
-      description: Deploy HuggingFace applications of model
-      handler: not-used
-      timeout: 1800
-      memorySize: ${vars.memorySize}
-      cpu: 2
-      diskSize: 10240
-      gpuConfig:
-        gpuMemorySize: ${vars.gpuMemorySize}
-        gpuType: ${vars.gpuInstanceType}
-      instanceConcurrency: 1
-      runtime: custom-container
-      initializer: 'true'
-      initializationTimeout: 300
-      internetAccess: true
-      vpcConfig: ${resources.model_download_func.output.vpcConfig}
-      nasConfig: ${resources.model_download_func.output.nasConfig}
-      customContainerConfig:
-        image: registry.${vars.region}.aliyuncs.com/sd-test-zhonglun/hf:transformers_v5
-        port: 8000
-      environmentVariables:
-        MODEL_ID: ${vars.modelID}
-        HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
-        MODEL_TASK: ${vars.modelTask}
-        HF_HOME: /mnt/${vars.name}-model-download-func/hf
-        PYTHONPATH: /docker:/mnt/${vars.name}-model-download-func/python
-      triggers:
-        - triggerName: httpTrigger
-          triggerType: http
-          description: 'httpTriggerModel'
-          qualifier: LATEST
-          triggerConfig:
-            authType: anonymous
-            disableURLInternet: false
-            methods:
-              - GET
-              - POST
-              - PUT
   custom-domain:
     component: fc3-domain
     props: #  组件的属性值
