@@ -88,8 +88,8 @@ resources:
         MODEL_ID: ${vars.modelID}
         HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
         HF_HOME: /mnt/${vars.name}-model-app/hf
-      layers:
-        - acs:fc:ap-southeast-1:1041759428116431:layers/huggingface_hub/versions/1
+        PYTHONPATH: /code/python
+
   custom-domain:
     component: fc3-domain
     props: #  组件的属性值
