@@ -70,7 +70,7 @@ resources:
     props:
       region: ${vars.region}
       role: ${vars.role}
-      functionName: ${vars.name}-model-download-func
+      functionName: ${vars.name}-model-download
       description: initialize model into nas storage
       handler: index.handler
       timeout: 86400

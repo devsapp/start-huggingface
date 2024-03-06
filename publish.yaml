@@ -39,6 +39,7 @@ Parameters:
     - gpuInstanceType
     - gpuMemorySize
     - memorySize
+    - accessToken
   properties:
     region:
       title: 地域
