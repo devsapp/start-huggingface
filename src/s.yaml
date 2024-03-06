@@ -90,3 +90,18 @@ resources:
               - GET
               - POST
               - PUT
+  custom-domain:
+    component: fc3-domain
+    props: #  组件的属性值
+      region: ${vars.region}
+      domainName: auto
+      protocol: HTTP
+      routeConfig:
+        routes:
+          - functionName: ${resources.model_app_func.props.functionName}
+            methods:
+              - GET
+              - POST
+              - PUT
+            path: /*
+            qualifier: LATEST
