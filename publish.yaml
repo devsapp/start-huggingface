@@ -40,6 +40,7 @@ Parameters:
     - gpuMemorySize
     - memorySize
     - accessToken
+    - pipeline
   properties:
     region:
       title: 地域
@@ -72,12 +73,20 @@ Parameters:
       title: 模型ID
       type: string
       default: 'distilbert/distilbert-base-uncased-finetuned-sst-2-english'
-      description: HuggingFace的模型ID, 可以从 https://huggingface.co/models 模型页获取
+      description: HuggingFace的模型ID, 可以从模型详情页获取
     modelTask:
       title: 模型任务类型
       type: string
       default: 'text-classification'
-      description: HuggingFace的模型任务类型，可以从 https://huggingface.co/models 模型页获取
+      description: HuggingFace的模型任务类型，可以从模型详情页获取
+    pipeline:
+      title: 模型加载库
+      type: string
+      default: Transformers
+      description: HuggingFace的加载模型所需要的pipeline库，可以从模型详情页获取
+      enum:
+        - Transformers
+        - Diffusers
     accessToken:
       title: Access Token
       type: secret
