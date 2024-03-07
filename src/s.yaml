@@ -42,8 +42,8 @@ resources:
       vpcConfig: auto
       nasConfig: auto
       customContainerConfig:
-#        image: registry.${vars.region}.aliyuncs.com/sd-test-zhonglun/hf:transformers_v5
-        image: ${vars.imageUrl}
+        image: registry.${vars.region}.aliyuncs.com/sd-test-zhonglun/hf:transformers_v5
+#        image: ${vars.imageUrl}
         port: 8000
       environmentVariables:
         MODEL_ID: ${vars.modelID}
