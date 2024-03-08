@@ -93,6 +93,7 @@ resources:
         MODEL_ID: ${vars.modelID}
         HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
         HF_HOME: /mnt/${vars.name}-model-app/hf
+        MODEL_TASK: ${vars.modelTask}
         PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
       triggers:
         - triggerName: httpTrigger
