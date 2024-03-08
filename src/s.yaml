@@ -42,7 +42,6 @@ resources:
       vpcConfig: auto
       nasConfig: auto
       customContainerConfig:
-#        image: registry.${vars.region}.aliyuncs.com/sd-test-zhonglun/hf:transformers_v5
         image: ${vars.imageUrl}
         port: 8000
       environmentVariables:
@@ -68,7 +67,7 @@ resources:
     component: 'fc3'
     actions:
       complete-deploy:
-        - component: fc3 invoke
+        - run: curl -X POST -H "Content-Type:application/json" -d '{}' ${resources.model_download_func.output.url.system_url}
     props:
       region: ${vars.region}
       role: ${vars.role}
@@ -76,21 +75,35 @@ resources:
       description: initialize model into nas storage
       handler: index.handler
       timeout: 86400
-      memorySize: 16384
+      memorySize: 32768
       cpu: 8
       diskSize: 10240
       instanceType: e1
       instanceConcurrency: 1
-      runtime: python3.10
-      code: ./model_download
+      runtime: custom-container
+      initializer: 'true'
+      initializationTimeout: 300
       internetAccess: true
       vpcConfig: ${resources.model_app_func.output.vpcConfig}
       nasConfig: ${resources.model_app_func.output.nasConfig}
+      customContainerConfig:
+        image: ${vars.imageUrl}
+        port: 8000
       environmentVariables:
         MODEL_ID: ${vars.modelID}
         HUGGING_FACE_HUB_TOKEN: ${vars.modelAccessToken}
         HF_HOME: /mnt/${vars.name}-model-app/hf
-        PYTHONPATH: /code/python
+        PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          description: 'httpTriggerModel'
+          qualifier: LATEST
+          triggerConfig:
+            authType: anonymous
+            disableURLInternet: false
+            methods:
+              - POST
 
   custom-domain:
     component: fc3-domain
