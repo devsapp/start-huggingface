@@ -10,7 +10,7 @@ vars: # 全局变量
   version: fc-deploy-common-v17.3.3
   name: {{ name }}
   role: {{ roleArn }}
-  imageUrl: "registry.{{region}}.aliyuncs.com/sd-test-zhonglun/hf:{{ if pipeline === 'Transformers' }}transformers_v5{{ else }}diffusers_v5{{/if}}"
+  imageUrl: "registry.{{region}}.aliyuncs.com/sd-test-zhonglun/hf:{{ if pipeline === 'Transformers' }}transformers_v6{{ else }}diffusers_v6{{/if}}"
   gpuInstanceType: {{ gpuInstanceType }}
   gpuMemorySize: {{ gpuMemorySize }}
   memorySize: {{ memorySize }}
