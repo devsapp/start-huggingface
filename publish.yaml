@@ -49,6 +49,7 @@ Parameters:
       description: 创建应用所在的地区
       enum:
         - ap-southeast-1
+        - cn-beijing
     name:
       title: 项目名
       type: string

@@ -50,6 +50,7 @@ resources:
         MODEL_TASK: ${vars.modelTask}
         HF_HOME: /mnt/${vars.name}-model-app/hf
         PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
+        HF_ENDPOINT: "{{ if region === 'cn-beijing' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
       triggers:
         - triggerName: httpTrigger
           triggerType: http
@@ -95,6 +96,7 @@ resources:
         HF_HOME: /mnt/${vars.name}-model-app/hf
         MODEL_TASK: ${vars.modelTask}
         PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
+        HF_ENDPOINT: "{{ if region === 'cn-beijing' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
       triggers:
         - triggerName: httpTrigger
           triggerType: http
