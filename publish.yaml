@@ -50,6 +50,7 @@ Parameters:
       enum:
         - ap-southeast-1
         - cn-beijing
+        - cn-shanghai
     name:
       title: 项目名
       type: string

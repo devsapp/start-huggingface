@@ -10,7 +10,7 @@ vars: # 全局变量
   version: fc-deploy-common-v17.3.3
   name: {{ name }}
   role: {{ roleArn }}
-  imageUrl: "registry.{{region}}.aliyuncs.com/sd-test-zhonglun/hf:{{ if pipeline === 'Transformers' }}transformers_v6{{ else }}diffusers_v6{{/if}}"
+  imageUrl: "registry.{{region}}.aliyuncs.com/aliyun-fc/huggingface:{{ if pipeline === 'Transformers' }}transformers-v1{{ else }}diffusers-v1{{/if}}"
   gpuInstanceType: {{ gpuInstanceType }}
   gpuMemorySize: {{ gpuMemorySize }}
   memorySize: {{ memorySize }}
@@ -50,7 +50,7 @@ resources:
         MODEL_TASK: ${vars.modelTask}
         HF_HOME: /mnt/${vars.name}-model-app/hf
         PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
-        HF_ENDPOINT: "{{ if region === 'cn-beijing' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
+        HF_ENDPOINT: "{{ if region === 'cn-shanghai' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
       triggers:
         - triggerName: httpTrigger
           triggerType: http
@@ -96,7 +96,7 @@ resources:
         HF_HOME: /mnt/${vars.name}-model-app/hf
         MODEL_TASK: ${vars.modelTask}
         PYTHONPATH: /docker:/mnt/${vars.name}-model-app/python
-        HF_ENDPOINT: "{{ if region === 'cn-beijing' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
+        HF_ENDPOINT: "{{ if region === 'cn-shanghai' }}https://hf-mirror.com{{ else }}https://huggingface.co{{/if}}"
       triggers:
         - triggerName: httpTrigger
           triggerType: http
