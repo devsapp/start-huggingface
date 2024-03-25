@@ -51,6 +51,7 @@ Parameters:
         - ap-southeast-1
         - cn-beijing
         - cn-shanghai
+        - cn-hangzhou
     name:
       title: 项目名
       type: string
