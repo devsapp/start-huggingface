@@ -156,8 +156,7 @@ huggingface应用使用的huggingface提供的transformers和diffusers两个库�
 | Depth-to-image     | `depth-to-image`     |
 
 #### API
-见：后续补充
-
+见：https://developer.aliyun.com/article/1476133
 
 </usedetail>
 
