@@ -45,13 +45,11 @@ Parameters:
     region:
       title: 地域
       type: string
-      default: ap-southeast-1
+      default: cn-hangzhou
       description: 创建应用所在的地区
       enum:
-        - ap-southeast-1
-        - cn-beijing
-        - cn-shanghai
         - cn-hangzhou
+        - cn-shanghai
     name:
       title: 项目名
       type: string
