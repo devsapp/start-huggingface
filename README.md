@@ -1,22 +1,22 @@
 
-> 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、服务名、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 `s init ` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
+> 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 `s init ${模版名称}` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
 
 # start-huggingface 帮助文档
 <p align="center" class="flex justify-center">
     <a href="https://www.serverless-devs.com" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-modelscope-v3&type=packageType">
+    <img src="http://editor.devsapp.cn/icon?package=start-huggingface&type=packageType">
   </a>
-  <a href="http://www.devsapp.cn/details.html?name=start-modelscope-v3" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-modelscope-v3&type=packageVersion">
+  <a href="http://www.devsapp.cn/details.html?name=start-huggingface" class="ml-1">
+    <img src="http://editor.devsapp.cn/icon?package=start-huggingface&type=packageVersion">
   </a>
-  <a href="http://www.devsapp.cn/details.html?name=start-modelscope-v3" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-modelscope-v3&type=packageDownload">
+  <a href="http://www.devsapp.cn/details.html?name=start-huggingface" class="ml-1">
+    <img src="http://editor.devsapp.cn/icon?package=start-huggingface&type=packageDownload">
   </a>
 </p>
 
 <description>
 
-HugingFace应用
+HuggingFace(fc3.0)
 
 </description>
 
@@ -34,29 +34,19 @@ HugingFace应用
 
 ## 前期准备
 
-使用该项目，您需要有开通以下服务：
+使用该项目，您需要有开通以下服务并拥有对应权限：
 
 <service>
 
-| 服务 |  备注  |
-| --- |  --- |
-| 函数计算 FC |  下载并加载模型 |
-| 文件存储 NAS |  存储模型，加快模型启动速度 |
+
+
+| 服务/业务 |  权限  | 相关文档 |
+| --- |  --- | --- |
+| 函数计算 |  AliyunFCFullAccess | [帮助文档](https://help.aliyun.com/product/2508973.html) [计费文档](https://help.aliyun.com/document_detail/2512928.html) |
+| NAS |  AliyunNASFullAccess | [帮助文档](undefined) [计费文档](undefined) |
+| VPC |  AliyunVPCFullAccess | [帮助文档](undefined) [计费文档](undefined) |
 
 </service>
-
-推荐您拥有以下的产品权限 / 策略：
-<auth>
-
-
-
-| 服务/业务 |  权限 |  备注  |
-| --- |  --- |   --- |
-| 函数计算 | AliyunFCFullAccess |  需要创建函数资源，通过函数下载及加载模型 |
-| NAS | AliyunNASFullAccess |  先将模型从公网下载到NAS，应用启动时加载NAS上的模型使用 |
-| VPC | AliyunVPCFullAccess |  使用NAS需要同时使用VPC |
-
-</auth>
 
 <remark>
 
@@ -83,20 +73,98 @@ HugingFace应用
     
 - 通过 [Serverless Devs Cli](https://www.serverless-devs.com/serverless-devs/install) 进行部署：
   - [安装 Serverless Devs Cli 开发者工具](https://www.serverless-devs.com/serverless-devs/install) ，并进行[授权信息配置](https://docs.serverless-devs.com/fc/config) ；
-  - 初始化项目：`s init start-huggingface -d start-huggingface `
-  - 进入项目，并进行项目部署：`cd start-huggingface && s deploy - y`
+  - 初始化项目：`s init start-huggingface -d start-huggingface`
+  - 进入项目，并进行项目部署：`cd start-huggingface && s deploy -y`
    
 </deploy>
 
-## 应用详情
+## 案例介绍
 
 <appdetail id="flushContent">
+
+用户在函数计算一键拉起huggingface模型，便于用户基于函数计算使用huggingface模型。减少用户在函数计算上部署模型的步骤，提升用户体验。用户只需要填写huggingface上模型ID即可
+
 </appdetail>
 
-## 使用文档
+## 使用流程
 
 <usedetail id="flushContent">
+
+### huggingface配置
+
+<img src="https://img.alicdn.com/imgextra/i2/O1CN01zDZtXt1mvq0VzlwXb_!!6000000005017-0-tps-1500-345.jpg">
+其中主要涉及huggingface中的模型ID, 模型任务类型， 加载模型需要的库，已经huggingface access token， 下面以distilbert/distilbert-base-uncased-finetuned-sst-2-english为例，进入到模型详情页，https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english
+<img src="https://img.alicdn.com/imgextra/i4/O1CN01AKnqlW1iimFZejoRE_!!6000000004447-0-tps-1500-651.jpg">
+模型ID,其中上图中标识1，即为模型ID<br>
+模型任务类型, 其中上图中标识的2， 即为任务类型。模版中的认为类型需要映射下，具体映射规则见下表<br>
+加载模型需要的库, 图中3位置即为需要加载的模型库，选择模版中的Transformers即可<br>
+access token， 进入到https://huggingface.co/settings/tokens，页面获取即可<br>
+
+### 详情
+huggingface应用使用的huggingface提供的transformers和diffusers两个库进行模型加载，所以本身模型需要能支持这两个库进行加载才行。
+
+#### transformers
+如何确定模型能被transformers加载，可以进入到模型详情页，这里以distilbert/distilbert-base-uncased-finetuned-sst-2-english为例，如下图所示
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01LIBKR71PpD77tKdmA_!!6000000001889-0-tps-1500-716.jpg">
+如上如所示，圈出位置有Transformers代表能用transformers进行加载，就可以使用函数计算提供的huggingface应用模版
+##### 支持TASK列表
+| Task Category                      | Task Identifier                     |
+|------------------------------------|-------------------------------------|
+| Audio Classification               | `audio-classification`              |
+| Automatic Speech Recognition       | `automatic-speech-recognition`      |
+| Text-to-Audio                      | `text-to-audio`                     |
+| Text-to-Speech                     | `text-to-speech`                    |
+| Depth Estimation                   | `depth-estimation`                  |
+| Image Classification               | `image-classification`              |
+| Image Segmentation                 | `image-segmentation`                |
+| Image-to-Image                     | `image-to-image`                    |
+| Object Detection                   | `object-detection`                  |
+| Video Classification               | `video-classification`              |
+| Zero-Shot Image Classification     | `zero-shot-image-classification`    |
+| Zero-Shot Object Detection         | `zero-shot-object-detection`        |
+| Fill-Mask                          | `fill-mask`                         |
+| Question Answering                 | `question-answering`                |
+| Summarization                      | `summarization`                     |
+| Table Question Answering           | `table-question-answering`          |
+| Text Classification                | `text-classification`               |
+| Text Generation                    | `text-generation`                   |
+| Text2Text Generation               | `text2text-generation`              |
+| Token Classification               | `token-classification`              |
+| Translation                        | `translation`                       |
+| Zero-Shot Classification           | `zero-shot-classification`          |
+| Document Question Answering        | `document-question-answering`       |
+| Feature Extraction                 | `feature-extraction`                |
+| Image Feature Extraction           | `image-feature-extraction`          |
+| Image-to-Text                      | `image-to-text`                     |
+| Mask Generation                    | `mask-generation`                   |
+| Visual Question Answering          | `visual-question-answering`         |
+
+#### diffusers
+<font size=3>如何确定哪些模型能使用diffusers进行加载，以runwayml/stable-diffusion-v1-5为例，查看模型详情页
+<img src="https://img.alicdn.com/imgextra/i1/O1CN01W0LUeL1Mw8Fg181WH_!!6000000001498-0-tps-1500-467.jpg">
+如上图圈出有Diffusers标识的才可以使用</font>
+
+##### 支持TASK列表
+<font size=3>参考：https://huggingface.co/docs/diffusers/using-diffusers/pipeline_overview
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01lIKUcJ28R4xGmUndq_!!6000000007928-0-tps-1500-700.jpg">
+
+| HuggingFace Task  | Model Task Identifier |
+|--------------------|----------------------|
+| Text-to-Image      | `text-to-image`      |
+| Image-to-Image     | `image-to-image`     |
+| Inpainting         | `inpainting`         |
+| Depth-to-image     | `depth-to-image`     |
+
+#### API
+见：后续补充
+
+
 </usedetail>
+
+## 注意事项
+
+<matters id="flushContent">
+</matters>
 
 
 <devgroup>
