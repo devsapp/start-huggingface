@@ -6,12 +6,13 @@ Provider:
 Version: 0.0.1
 Description: HuggingFace(fc3.0)
 HomePage: https://github.com/devsapp/start-huggingface
+Effective: Public
 Tags:
   - AIGC
   - 大模型
 Category: 人工智能
 Service:
-  函数计算:
+  FC:
     Authorities:
       - AliyunFCFullAccess
   NAS:
@@ -20,7 +21,6 @@ Service:
   VPC:
     Authorities:
       - AliyunVPCFullAccess
-Effective: Public
 Parameters:
   type: object
   additionalProperties: false
