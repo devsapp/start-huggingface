@@ -1,20 +1,11 @@
-# 规范文档参考:
-# 中文：https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.2/serverless_package_model/package_model.md#应用模型规范
-# English: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/en/0.0.2/serverless_package_model/package_model.md#Application-model-specification
-# --------------
-# Package 开发发布最佳实践:
-#   - [社区讨论 #62](https://github.com/Serverless-Devs/Serverless-Devs/discussions/62);
-#   - [社区讨论 #407](https://github.com/Serverless-Devs/Serverless-Devs/discussions/407);
-#   - [社区讨论 #439](https://github.com/Serverless-Devs/Serverless-Devs/discussions/439);
 Edition: 3.0.0
-Type: Application
+Type: Project
 Name: start-huggingface
 Provider:
   - 阿里云 
 Version: 0.0.1
 Description: HuggingFace(fc3.0)
 HomePage: https://github.com/devsapp/start-huggingface
-Effective: Public
 Tags:
   - AIGC
   - 大模型
@@ -29,6 +20,7 @@ Service:
   VPC:
     Authorities:
       - AliyunVPCFullAccess
+Effective: Public
 Parameters:
   type: object
   additionalProperties: false
