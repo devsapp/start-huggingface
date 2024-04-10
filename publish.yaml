@@ -15,6 +15,12 @@ Service:
   函数计算:
     Authorities:
       - AliyunFCFullAccess
+  NAS:
+    Authorities:
+      - AliyunNASFullAccess
+  VPC:
+    Authorities:
+      - AliyunVPCFullAccess
 
 Parameters:
   type: object
