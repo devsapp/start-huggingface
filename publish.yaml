@@ -15,10 +15,10 @@ Service:
   函数计算:
     Authorities:
       - AliyunFCFullAccess
-  NAS:
+  硬盘挂载:
     Authorities:
       - AliyunNASFullAccess
-  VPC:
+  专有网络:
     Authorities:
       - AliyunVPCFullAccess
 
