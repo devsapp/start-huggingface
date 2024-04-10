@@ -3,7 +3,7 @@ Type: Project
 Name: start-huggingface
 Provider:
   - 阿里云 
-Version: 0.0.1
+Version: 0.0.2
 Description: HuggingFace(fc3.0)
 HomePage: https://github.com/devsapp/start-huggingface
 Effective: Public
