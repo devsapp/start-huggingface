@@ -15,12 +15,13 @@ Service:
   FC:
     Authorities:
       - AliyunFCFullAccess
-  NAS:
-    Authorities:
-      - AliyunNASFullAccess
-  VPC:
-    Authorities:
-      - AliyunVPCFullAccess
+#  NAS:
+#    Authorities:
+#      - AliyunNASFullAccess
+#  VPC:
+#    Authorities:
+#      - AliyunVPCFullAccess
+
 Parameters:
   type: object
   additionalProperties: false
