@@ -3,7 +3,7 @@ Type: Project
 Name: start-huggingface
 Provider:
   - 阿里云 
-Version: 0.0.1
+Version: dev
 Description: HuggingFace(fc3.0)
 HomePage: https://github.com/devsapp/start-huggingface
 Effective: Public
@@ -12,15 +12,9 @@ Tags:
   - 大模型
 Category: 人工智能
 Service:
-  FC:
+  函数计算:
     Authorities:
       - AliyunFCFullAccess
-#  NAS:
-#    Authorities:
-#      - AliyunNASFullAccess
-#  VPC:
-#    Authorities:
-#      - AliyunVPCFullAccess
 
 Parameters:
   type: object
